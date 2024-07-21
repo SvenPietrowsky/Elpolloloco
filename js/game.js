@@ -3,11 +3,24 @@ let world;
 let keyboard = new Keyboard();
 
 function init() {
+    showStartScreen();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
 
+function showStartScreen() {
+    
+}
+
+function fullscreen() {
+    canvas.requestFullscreen();
+}
+
 window.addEventListener('keydown', (e) => {
+    if(e.keyCode == 68) {
+        keyboard.D = true;
+    }
+
     if (e.keyCode == 39) {
         keyboard.RIGHT = true;
     }
@@ -30,6 +43,10 @@ window.addEventListener('keydown', (e) => {
 });
 
 window.addEventListener('keyup', (e) => {
+    if(e.keyCode == 68) {
+        keyboard.D = false;
+    }
+
     if (e.keyCode == 39) {
         keyboard.RIGHT = false;
     }
