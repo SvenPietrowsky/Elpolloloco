@@ -1,7 +1,14 @@
 class Character extends MoveableObject {
     height = 250;
-    y = 80;
-    speed = 10;
+    y = 180;
+    speed = 5;
+
+    offset = {
+        left: 30,
+        top: 140,
+        right: 30,
+        bottom: 15,
+    };
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -66,6 +73,7 @@ class Character extends MoveableObject {
     ];
     world;
     walking_sound = new Audio('audio/walking.mp3');
+    hurt_sound = new Audio('audio/characterHurt.mp3');
 
     constructor() {
         super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png');
@@ -106,9 +114,11 @@ class Character extends MoveableObject {
 
             if(this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                // showGameOver();
+                showGameOver();
+                stopGame();
             } else if(this.isHurt()){
                 this.playAnimation(this.IMAGES_HURT);
+                this.hurt_sound.play();
             } else if(this.isAboveGround()) {
                 this.playAnimationJump(this.IMAGES_JUMPING);
             } else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
